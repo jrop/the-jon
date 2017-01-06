@@ -31,7 +31,6 @@ const Budget = connect(s => s)(stackable(class Budget extends React.Component {
 			<AppBar title="Budget"
 				iconElementLeft={<IconButton onClick={() => this.stack.pop()}><ArrowBack /></IconButton>}
 				iconElementRight={<div>
-					<IconButton onClick={() => console.log('sort')}><Sort color="white" /></IconButton>
 					<IconButton onClick={() => this.addBin()}><AddBox color="white" /></IconButton>
 				</div>} />
 

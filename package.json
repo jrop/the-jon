@@ -21,7 +21,7 @@
     "flow-typed": "^2.0.0",
     "material-ui": "^0.16.6",
     "material-ui-dialogs": "^1.1.0",
-    "pouchdb": "^6.1.0",
+    "pouchdb": "^6.1.1",
     "react": "^15.4.1",
     "react-activity-stack": "^0.0.1",
     "react-dom": "^15.4.1",

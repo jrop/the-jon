@@ -11,29 +11,30 @@ export default class BinEditor extends React.Component {
 	deferred: any
 	promise: Promise<any>
 
-	constructor(props) {
+	constructor(props: any) {
 		super(props)
 		this.deferred = defer()
 		this.promise = this.deferred.promise
 	}
-	_close(cancel) {
-		if (cancel) {
-			this.deferred.resolve(null)
+
+	onDone(cancelled: boolean) {
+		const close = result => {
+			this.deferred.resolve(result)
 			this.refs.dlg.close()
-			return
 		}
+		if (cancelled)
+			return close(null)
 
 		const max = parseFloat(this.refs.max.getValue())
 		if (isNaN(max))
 			return dialogs.alert(`'${this.refs.max.getValue()}' is not a number.  Please enter a number.`)
-
-		this.deferred.resolve({
+		close({
 			name: this.refs.name.getValue(),
 			max,
 			txns: [],
 		})
-		this.refs.dlg.close()
 	}
+
 	render() {
 		const name = this.props.name || ''
 		const max = this.props.max || ''
@@ -43,8 +44,8 @@ export default class BinEditor extends React.Component {
 				<TextField hintText="Dollar amount" floatingLabelText="Dollar ammount" defaultValue={max} name="max" ref="max" />
 			</Content>
 			<Actions>
-				<FlatButton label="Cancel" secondary onClick={() => this._close(true)} />
-				<FlatButton label="Okay" primary onClick={() => this._close(false)} />
+				<FlatButton label="Cancel" secondary onClick={() => this.onDone(true)} />
+				<FlatButton label="Okay" primary onClick={() => this.onDone(false)} />
 			</Actions>
 		</Dialog>
 	}

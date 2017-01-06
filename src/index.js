@@ -16,7 +16,7 @@ import stackable from './stackable'
 const App = stackable(class extends React.Component {
 	render() {
 		return <div>
-			<AppBar iconElementLeft={<div />} title="Life" />
+			<AppBar iconElementLeft={<div />} title="The Jon" />
 
 			<p style={{textAlign: 'center'}}>Applications:</p>
 

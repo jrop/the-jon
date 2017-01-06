@@ -1,6 +1,7 @@
 // @flow
-import {connect} from 'react-redux'
+import {connect, Provider} from 'react-redux'
 import React from 'react'
+import store from './store'
 
 import BinEditor from './bin-editor'
 import * as dialogs from 'material-ui-dialogs'
@@ -8,45 +9,69 @@ import {show} from 'material-ui-dialogs'
 import FlatButton from 'material-ui/FlatButton'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import LinearProgress from 'material-ui/LinearProgress'
+import stackable from '../../stackable'
 
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import Edit from 'material-ui/svg-icons/image/edit'
 
-export default connect(s => s)(function Bin(props) {
-	async function onDelete() {
-		if (await dialogs.confirm(`Are you sure you want to delete '${props.name}'?`))
-			props.dispatch({type: 'DELETE_BIN', name: props.name})
+import Txns from './txns'
+import TxnEditor from './txn-editor'
+
+export default connect(s => s)(stackable(class Bin extends React.Component {
+	stack: any
+	onTxns() {
+		this.stack.push(<Provider store={store}><Txns bin={this.props.name}/></Provider>)
 	}
 
-	async function onEdit() {
-		const newBin = await show(<BinEditor name={props.name} max={props.max} />)
+	async onAddTxn() {
+		const txn = await show(<TxnEditor />)
+		if (!txn) return
+		this.props.dispatch({type: 'ADD_TXN', bin: this.props.name, txn})
+	}
+
+	async onEdit() {
+		const newBin = await show(<BinEditor name={this.props.name} max={this.props.max} />)
 		if (newBin)
-			props.dispatch({type: 'UPDATE_BIN', name: props.name, bin: newBin})
+			this.props.dispatch({type: 'UPDATE_BIN', name: this.props.name, bin: newBin})
 	}
 
-	return <Card style={{margin: '5px 0'}}>
-		<CardHeader title={props.name}
-			subtitle={`$${props.max}`}
-			actAsExpander={true}
-			showExpandableButton={true}/>
-		<CardText>
-			<LinearProgress mode="determinate" value={0} />
-		</CardText>
-		<CardActions expandable={true}>
-			<div style={{
-				display: 'flex',
-				flexDirection: 'row',
-				alignItems: 'center',
-			}}>
-				<FlatButton label="Txns" style={{flex: '0 0 auto'}} />
-				<FlatButton label="Add" style={{flex: '0 0 auto'}} />
+	async onDelete() {
+		if (await dialogs.confirm(`Are you sure you want to delete '${this.props.name}'?`))
+			this.props.dispatch({type: 'DELETE_BIN', name: this.props.name})
+	}
 
-				<div style={{flex: '1 0 auto', textAlign: 'right'}}>
-					<IconButton onClick={() => onEdit()}><Edit /></IconButton>
-					<IconButton onClick={() => onDelete()}><Delete /></IconButton>
+	render() {
+		const sAmount = n => `$${n}`.replace(/^\$-/, '-$')
+		const spent = this.props.txns.reduce((acc, t) => acc + t.amt, 0)
+		const progress = spent / this.props.max * 100
+
+		return <Card style={{margin: '5px 0'}}>
+			<CardHeader title={this.props.name}
+				subtitle={`${sAmount(spent)} / ${sAmount(this.props.max)}: ${sAmount(this.props.max - spent)} left`}
+				actAsExpander={true}
+				showExpandableButton={true} />
+			<CardText>
+				<LinearProgress
+					mode="determinate"
+					value={progress}
+					color={Math.abs(spent) > Math.abs(this.props.max) ? 'red' : null} />
+			</CardText>
+			<CardActions expandable={true}>
+				<div style={{
+					display: 'flex',
+					flexDirection: 'row',
+					alignItems: 'center',
+				}}>
+					<FlatButton label="Txns" style={{flex: '0 0 auto'}} onClick={() => this.onTxns()} />
+					<FlatButton label="Add" style={{flex: '0 0 auto'}} onClick={() => this.onAddTxn()} />
+
+					<div style={{flex: '1 0 auto', textAlign: 'right'}}>
+						<IconButton onClick={() => this.onEdit()}><Edit /></IconButton>
+						<IconButton onClick={() => this.onDelete()}><Delete /></IconButton>
+					</div>
 				</div>
-			</div>
-		</CardActions>
-	</Card>
-})
+			</CardActions>
+		</Card>
+	}
+}))

@@ -34,6 +34,38 @@ register('DELETE_BIN', function (state, {name}) {
 	newState.bins = newState.bins.filter(b => b.name != name)
 	return newState
 })
+register('ADD_TXN', function (state, {bin, txn}) {
+	const newState = Object.assign({}, state)
+	newState.bins = newState.bins.map(b => {
+		if (b.name != bin)
+			return b
+		const newB = Object.assign({}, b)
+		newB.txns = newB.txns.slice() // copy
+		newB.txns.push(txn)
+		return newB
+	})
+	return newState
+})
+register('UPDATE_TXN', function (state, {bin, index, txn}) {
+	const newState = Object.assign({}, state)
+	newState.bins = newState.bins.slice()
+
+	const [binToEdit] = newState.bins.filter(b => b.name == bin)
+	binToEdit.txns = binToEdit.txns.slice()
+	binToEdit.txns[index] = txn
+
+	return newState
+})
+register('DELETE_TXN', function (state, {bin, index}) {
+	const newState = Object.assign({}, state)
+	newState.bins = newState.bins.slice()
+
+	const [binToEdit] = newState.bins.filter(b => b.name == bin)
+	binToEdit.txns = binToEdit.txns.slice()
+	binToEdit.txns.splice(index, 1)
+
+	return newState
+})
 // }}
 
 const store = createStore(function (state: any, action: any) {
