@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
+    "build": "NODE_ENV=production webpack --progress && npm pack",
     "start": "webpack-dev-server --inline --hot --open --host 0.0.0.0"
   },
   "devDependencies": {
@@ -32,5 +33,6 @@
     "redux": "^3.6.0",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
-  }
+  },
+  "files": ["build/index.js", "build/index.js.map", "icons/launcher.png", "index.html", "manifest.json"]
 }
