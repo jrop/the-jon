@@ -1,6 +1,8 @@
 // @flow
 import {applyMiddleware, createStore} from 'redux'
 import PouchDB from 'pouchdb'
+import update from 'immutability-helper'
+import _ from 'lodash'
 
 type reducer = (state: any, action: any) => any
 const reducers: Map<string, reducer> = new Map()
@@ -16,55 +18,55 @@ register('HYDRATE', (s, action) => {
 	return store
 })
 register('ADD_BIN', function (state, {bin}) {
-	const newState = Object.assign({}, state)
-	newState.bins = [...newState.bins, bin]
-	return newState
+	return update(state, {bins: {$push: [bin]}})
 })
 register('UPDATE_BIN', function (state, {name, bin}) {
-	const newState = Object.assign({}, state)
-	newState.bins = newState.bins.map(originalBin => {
-		if (originalBin.name != name)
-			return originalBin
-		return bin
+	const index = _.findIndex(state.bins, b => b.name == name)
+	return update(state, {
+		bins: {
+			$set: update(state.bins, {
+				[index]: {$set: bin},
+			}),
+		},
 	})
-	return newState
 })
 register('DELETE_BIN', function (state, {name}) {
-	const newState = Object.assign({}, state)
-	newState.bins = newState.bins.filter(b => b.name != name)
-	return newState
+	const index = _.findIndex(state.bins, b => b.name == name)
+	return update(state, {
+		bins: {$splice: [[index, 1]]},
+	})
 })
 register('ADD_TXN', function (state, {bin, txn}) {
-	const newState = Object.assign({}, state)
-	newState.bins = newState.bins.map(b => {
-		if (b.name != bin)
-			return b
-		const newB = Object.assign({}, b)
-		newB.txns = newB.txns.slice() // copy
-		newB.txns.push(txn)
-		return newB
+	const index = _.findIndex(state.bins, b => b.name == bin)
+	return update(state, {
+		bins: {
+			[index]: {
+				txns: {$push: [txn]},
+			},
+		},
 	})
-	return newState
 })
 register('UPDATE_TXN', function (state, {bin, index, txn}) {
-	const newState = Object.assign({}, state)
-	newState.bins = newState.bins.slice()
-
-	const [binToEdit] = newState.bins.filter(b => b.name == bin)
-	binToEdit.txns = binToEdit.txns.slice()
-	binToEdit.txns[index] = txn
-
-	return newState
+	const binIndex = _.findIndex(state.bins, b => b.name == bin)
+	return update(state, {
+		bins: {
+			[binIndex]: {
+				txns: {
+					[index]: {$set: txn},
+				},
+			},
+		},
+	})
 })
 register('DELETE_TXN', function (state, {bin, index}) {
-	const newState = Object.assign({}, state)
-	newState.bins = newState.bins.slice()
-
-	const [binToEdit] = newState.bins.filter(b => b.name == bin)
-	binToEdit.txns = binToEdit.txns.slice()
-	binToEdit.txns.splice(index, 1)
-
-	return newState
+	const binIndex = _.findIndex(state.bins, b => b.name == bin)
+	return update(state, {
+		bins: {
+			[binIndex]: {
+				txns: {$splice: [[index, 1]]},
+			},
+		},
+	})
 })
 // }}
 
@@ -80,7 +82,7 @@ const store = createStore(function (state: any, action: any) {
 }, {
 	loading: false,
 	bins: [],
-}, applyMiddleware())
+})
 
 // DB sync {{
 const db = new PouchDB('budget')
@@ -91,12 +93,19 @@ db.get('store')
 		delete s._rev
 		store.dispatch({type: 'HYDRATE', store: s})
 	})
-	.catch(e => console.warn('Cannot hydrate store', e))
+	.catch(e => {
+		db.put(Object.assign({}, store.getState(), {_id: 'store'}))
+		console.warn('Cannot hydrate store', e)
+	})
 
 store.subscribe(async () => {
 	const doc = await db.get('store')
 	db.put(Object.assign({}, store.getState(), {_id: 'store', _rev: doc._rev}))
 })
 // }}
+
+window.budget_peek_store = function() {
+	db.get('store').then(console.log)
+}
 
 export default store

@@ -40,8 +40,18 @@ export default class BinEditor extends React.Component {
 		const max = this.props.max || ''
 		return <Dialog ref="dlg" title="Bin">
 			<Content>
-				<TextField hintText="Name" floatingLabelText="Name" defaultValue={name} name="name" ref="name" />
-				<TextField hintText="Dollar amount" floatingLabelText="Dollar ammount" defaultValue={max} name="max" ref="max" />
+				<TextField hintText="Name"
+					floatingLabelText="Name"
+					defaultValue={name}
+					name="name"
+					ref="name"
+					style={{maxWidth: '100%'}} />
+				<TextField hintText="Dollar amount"
+					floatingLabelText="Dollar ammount"
+					defaultValue={max}
+					name="max"
+					ref="max"
+					style={{maxWidth: '100%'}} />
 			</Content>
 			<Actions>
 				<FlatButton label="Cancel" secondary onClick={() => this.onDone(true)} />

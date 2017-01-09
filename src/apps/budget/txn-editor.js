@@ -36,8 +36,18 @@ export default class TxnEditor extends React.Component {
 		const txn = this.props.txn || {desc: '', amt: ''}
 		return <Dialog ref="dlg" title="Transaction">
 			<Content>
-				<TextField hintText="Description" floatingLabelText="Description" defaultValue={txn.desc} name="desc" ref="desc" />
-				<TextField hintText="Amount" floatingLabelText="Amount" defaultValue={txn.amt} name="amt" ref="amt" />
+				<TextField hintText="Description"
+					floatingLabelText="Description"
+					defaultValue={txn.desc}
+					name="desc"
+					ref="desc"
+					style={{maxWidth: '100%'}} />
+				<TextField hintText="Amount"
+					floatingLabelText="Amount"
+					defaultValue={txn.amt}
+					name="amt"
+					ref="amt"
+					style={{maxWidth: '100%'}} />
 			</Content>
 			<Actions>
 				<FlatButton label="Cancel" onClick={() => this.onDone(true)} secondary />

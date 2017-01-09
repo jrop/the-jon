@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot --open"
+    "start": "webpack-dev-server --inline --hot --open --host 0.0.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -19,6 +19,8 @@
     "eslint-plugin-react": "^6.8.0",
     "flow-bin": "^0.37.4",
     "flow-typed": "^2.0.0",
+    "immutability-helper": "^2.1.0",
+    "lodash": "^4.17.4",
     "material-ui": "^0.16.6",
     "material-ui-dialogs": "^1.1.0",
     "pouchdb": "^6.1.1",
