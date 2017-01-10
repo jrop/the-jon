@@ -38,7 +38,7 @@ export default class BinEditor extends React.Component {
 	render() {
 		const name = this.props.name || ''
 		const max = this.props.max || ''
-		return <Dialog ref="dlg" title="Bin">
+		return <Dialog ref="dlg" title="Bin" autoScrollBodyContent={true}>
 			<Content>
 				<TextField hintText="Name"
 					floatingLabelText="Name"

@@ -14,7 +14,7 @@ import * as dialogs from 'material-ui-dialogs'
 import {show} from 'material-ui-dialogs'
 import TxnEditor from './txn-editor'
 
-export default connect(s => s)(stackable(class Txns extends React.Component {
+export default connect(s => s.apps.budget)(stackable(class Txns extends React.Component {
 	async onEdit(txn, index) {
 		const newTxn = await show(<TxnEditor txn={txn} />)
 		if (!newTxn) return

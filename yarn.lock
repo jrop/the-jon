@@ -2414,9 +2414,9 @@ ltgt@2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/ltgt/-/ltgt-2.1.2.tgz#e7472324fee690afc0d5ecf900403ce5788a311d"
 
-material-ui-dialogs@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/material-ui-dialogs/-/material-ui-dialogs-1.1.0.tgz#57ff90eb803e4be8f69cf2d140aa4ec068269c6f"
+material-ui-dialogs@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/material-ui-dialogs/-/material-ui-dialogs-1.1.1.tgz#ddae15a560cc4b09b437ea5b9c33717e08a72e1f"
 
 material-ui@^0.16.6:
   version "0.16.6"

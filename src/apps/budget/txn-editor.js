@@ -34,7 +34,7 @@ export default class TxnEditor extends React.Component {
 
 	render() {
 		const txn = this.props.txn || {desc: '', amt: ''}
-		return <Dialog ref="dlg" title="Transaction">
+		return <Dialog ref="dlg" title="Transaction" autoScrollBodyContent={true}>
 			<Content>
 				<TextField hintText="Description"
 					floatingLabelText="Description"

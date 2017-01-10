@@ -1,7 +1,6 @@
 // @flow
-import {connect, Provider} from 'react-redux'
+import {connect} from 'react-redux'
 import React from 'react'
-import store from './store'
 
 import BinEditor from './bin-editor'
 import * as dialogs from 'material-ui-dialogs'
@@ -21,7 +20,7 @@ import TxnEditor from './txn-editor'
 export default connect(s => s)(stackable(class Bin extends React.Component {
 	stack: any
 	onTxns() {
-		this.stack.push(<Provider store={store}><Txns bin={this.props.name}/></Provider>)
+		this.stack.push(<Txns bin={this.props.name}/>)
 	}
 
 	async onAddTxn() {
@@ -32,6 +31,7 @@ export default connect(s => s)(stackable(class Bin extends React.Component {
 
 	async onEdit() {
 		const newBin = await show(<BinEditor name={this.props.name} max={this.props.max} />)
+		newBin.txns = this.props.txns
 		if (newBin)
 			this.props.dispatch({type: 'UPDATE_BIN', name: this.props.name, bin: newBin})
 	}

@@ -1,4 +1,5 @@
 // @flow
+import './store'
 import AddBox from 'material-ui/svg-icons/content/add-box'
 import AppBar from 'material-ui/AppBar'
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
@@ -9,12 +10,11 @@ import React from 'react'
 import {show} from 'material-ui-dialogs'
 import Sort from 'material-ui/svg-icons/content/sort'
 import stackable from '../../stackable'
-import store from './store'
 
 import BinEditor from './bin-editor'
 import Bin from './bin'
 
-const Budget = connect(s => s)(stackable(class Budget extends React.Component {
+export default connect(s => s.apps.budget)(stackable(class Budget extends React.Component {
 	stack: any
 	constructor(props) {
 		super(props)
@@ -38,7 +38,3 @@ const Budget = connect(s => s)(stackable(class Budget extends React.Component {
 		</div>
 	}
 }))
-
-export default function BudgetWrapper() {
-	return <Provider store={store}><Budget /></Provider>
-}
