@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
+    "gh-pages": "rm -f ./*.tgz && npm run build && rm -rf ./gh-pages/* && mv *.tgz gh-pages/ && cd gh-pages && tar -xvf *.tgz && mv package/* . && rmdir package/ && rm ./*.tgz",
     "build": "NODE_ENV=production webpack --progress && npm pack",
     "start": "webpack-dev-server --inline --hot --open --host 0.0.0.0"
   },
@@ -23,7 +24,7 @@
     "immutability-helper": "^2.1.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.16.6",
-    "material-ui-dialogs": "^1.1.0",
+    "material-ui-dialogs": "^1.1.1",
     "pouchdb": "^6.1.1",
     "react": "^15.4.1",
     "react-activity-stack": "^0.0.1",
@@ -34,5 +35,15 @@
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
-  "files": ["build/index.js", "build/index.js.map", "icons/launcher.png", "index.html", "manifest.json"]
+  "files": [
+		"build/index.js",
+		"build/index.js.map",
+
+		"icons/toilet-paper.png",
+		"icons/bible.svg",
+		"icons/piggy-bank.svg",
+
+		"index.html",
+		"manifest.json"
+	]
 }

@@ -6,7 +6,7 @@
 	"background_color": "#ffffff",
 	"description": "Jonathan's utility-belt app",
 	"icons": [{
-		"src": "icons/launcher.png",
+		"src": "icons/toilet-paper.png",
 		"sizes": "48x48 72x72 96x96 128x128 144x144 256x256",
 		"author": "Arthur Schlain (The Noun Project)"
 	}]
