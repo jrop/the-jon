@@ -1,12 +1,11 @@
-// @flow
-import React from 'react'
+import * as React from 'react'
 
 import * as dialogs from 'material-ui-dialogs'
 import {Dialog, Content, Actions, defer} from 'material-ui-dialogs'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-export default class TxnEditor extends React.Component {
+export default class TxnEditor extends React.Component<any, any> {
 	deferred: any
 	promise: Promise<any>
 	constructor(props: any) {
@@ -18,16 +17,16 @@ export default class TxnEditor extends React.Component {
 	async onDone(cancelled: boolean) {
 		const close = result => {
 			this.deferred.resolve(result)
-			this.refs.dlg.close()
+			;(this.refs.dlg as any).close()
 		}
 		if (cancelled)
 			return close(null)
 
-		const amt = parseFloat(this.refs.amt.getValue())
+		const amt = parseFloat((this.refs.amt as any).getValue())
 		if (isNaN(amt))
-			return await dialogs.alert(`'${this.refs.amt.getValue()}' is not a valid number`)
+			return await dialogs.alert(`'${(this.refs.amt as any).getValue()}' is not a valid number`)
 		close({
-			desc: this.refs.desc.getValue(),
+			desc: (this.refs.desc as any).getValue(),
 			amt,
 		})
 	}

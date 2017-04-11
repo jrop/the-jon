@@ -1,6 +1,5 @@
-// @flow
 import {connect} from 'react-redux'
-import React from 'react'
+import * as React from 'react'
 
 import BinEditor from './bin-editor'
 import * as dialogs from 'material-ui-dialogs'
@@ -17,7 +16,7 @@ import Edit from 'material-ui/svg-icons/image/edit'
 import Txns from './txns'
 import TxnEditor from './txn-editor'
 
-export default connect(s => s)(stackable(class Bin extends React.Component {
+export default connect(s => s)(stackable(class Bin extends React.Component<any, any> {
 	stack: any
 	onTxns() {
 		this.stack.push(<Txns bin={this.props.name}/>)

@@ -1,5 +1,4 @@
-// @flow
-import React from 'react'
+import * as React from 'react'
 
 import * as dialogs from 'material-ui-dialogs'
 import {Dialog, Content, Actions, defer} from 'material-ui-dialogs'
@@ -7,7 +6,7 @@ import {Dialog, Content, Actions, defer} from 'material-ui-dialogs'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-export default class BinEditor extends React.Component {
+export default class BinEditor extends React.Component<any, any> {
 	deferred: any
 	promise: Promise<any>
 
@@ -20,16 +19,16 @@ export default class BinEditor extends React.Component {
 	onDone(cancelled: boolean) {
 		const close = result => {
 			this.deferred.resolve(result)
-			this.refs.dlg.close()
+			;(this.refs.dlg as any).close()
 		}
 		if (cancelled)
 			return close(null)
 
-		const max = parseFloat(this.refs.max.getValue())
+		const max = parseFloat((this.refs.max as any).getValue())
 		if (isNaN(max))
-			return dialogs.alert(`'${this.refs.max.getValue()}' is not a number.  Please enter a number.`)
+			return dialogs.alert(`'${(this.refs.max as any).getValue()}' is not a number.  Please enter a number.`)
 		close({
-			name: this.refs.name.getValue(),
+			name: (this.refs.name as any).getValue(),
 			max,
 			txns: [],
 		})

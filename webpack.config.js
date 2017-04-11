@@ -13,17 +13,20 @@ const PROD_PLUGINS = [new webpack.optimize.UglifyJsPlugin({
 
 module.exports = {
 	devtool: '#sourcemap',
-	entry: './src/index.js',
+	entry: './src/index.tsx',
 	output: {
-		path: `${__dirname}/build`,
+		path: `${__dirname}/lib/`,
 		filename: 'index.js',
-		publicPath: '/build/',
+		publicPath: '/lib/',
+	},
+	resolve: {
+		extensions: ['.ts', '.tsx', '.js', '.json'],
 	},
 	module: {
 		rules: [{
-			test: /\.js$/,
+			test: /\.tsx?$/,
 			exclude: /node_modules/,
-			loader: 'babel-loader',
+			loader: 'awesome-typescript-loader',
 		}],
 	},
 	plugins: PROD ? PROD_PLUGINS : [],

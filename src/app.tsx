@@ -1,5 +1,4 @@
-// @flow
-import React from 'react'
+import * as React from 'react'
 import stackable from './stackable'
 
 import AppBar from 'material-ui/AppBar'
@@ -10,7 +9,7 @@ import * as dialogs from 'material-ui-dialogs'
 
 import Budget from './apps/budget'
 
-export default stackable(class extends React.Component {
+export default stackable(class extends React.Component<any, any> {
 	stack: any
 	render() {
 		return <div>

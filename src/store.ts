@@ -1,4 +1,3 @@
-// @flow
 import {createStore} from 'redux'
 
 type reducer = (state: any, action: any) => any
@@ -6,7 +5,6 @@ const reducers: Map<string, reducer> = new Map()
 function register(type: string, reducer: reducer) {
 	reducers.set(type, reducer)
 }
-// }}
 
 register('HYDRATE', (s, action) => {
 	const {store} = action
@@ -43,8 +41,9 @@ store.subscribe(() =>
 	localStorage.setItem('store', JSON.stringify(store.getState())))
 // }}
 
-window.budget_peek_store = function() {
-	db.get('store').then(console.log)
+;(window as any).budget_peek_store = function() {
+	console.warn('TODO')
+	// db.get('store').then(console.log)
 }
 
 export default store

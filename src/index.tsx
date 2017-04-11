@@ -1,11 +1,9 @@
-// @flow
-import 'babel-polyfill'
-import React from 'react'
+import * as React from 'react'
 import {render} from 'react-dom'
 
 import * as colors from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import * as injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import {Provider} from 'react-redux'

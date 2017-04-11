@@ -1,4 +1,3 @@
-// @flow
 import {register} from '../../store'
 import update from 'immutability-helper'
 import _ from 'lodash'

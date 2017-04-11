@@ -1,6 +1,5 @@
-// @flow
 import {connect} from 'react-redux'
-import React from 'react'
+import * as React from 'react'
 
 import AppBar from 'material-ui/AppBar'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
@@ -14,7 +13,7 @@ import * as dialogs from 'material-ui-dialogs'
 import {show} from 'material-ui-dialogs'
 import TxnEditor from './txn-editor'
 
-export default connect(s => s.apps.budget)(stackable(class Txns extends React.Component {
+export default connect(s => s.apps.budget)(stackable(class Txns extends React.Component<any, any> {
 	async onEdit(txn, index) {
 		const newTxn = await show(<TxnEditor txn={txn} />)
 		if (!newTxn) return
@@ -32,7 +31,7 @@ export default connect(s => s.apps.budget)(stackable(class Txns extends React.Co
 		const {txns} = bin
 		return <div>
 			<AppBar title="Transactions"
-				iconElementLeft={<IconButton onClick={() => this.stack.pop()}><ArrowBack /></IconButton>} />
+				iconElementLeft={<IconButton onClick={() => (this as any).stack.pop()}><ArrowBack /></IconButton>} />
 
 			{txns.map((t, i) => <Card key={i} style={{margin: '5px 0'}}>
 				<CardHeader actAsExpander={true} showExpandableButton={true}

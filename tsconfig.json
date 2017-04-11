@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "lib": ["es2017", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "outDir": "lib/",
+    "sourceMap": true,
+    "target": "es2015"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
