@@ -9,6 +9,7 @@
     "start": "webpack-dev-server --inline --hot --open --host 0.0.0.0"
   },
   "devDependencies": {
+    "@types/material-ui": "^0.16.60",
     "@types/react": "^15.0.21",
     "@types/react-dom": "^0.14.23",
     "awesome-typescript-loader": "^3.1.2",
@@ -24,6 +25,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "typescript": "^2.2.2",
+    "usfm": "^0.0.2",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2"
   },

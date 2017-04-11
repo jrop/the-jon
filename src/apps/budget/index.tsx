@@ -8,13 +8,13 @@ import {Provider} from 'react-redux'
 import * as React from 'react'
 import {show} from 'material-ui-dialogs'
 import Sort from 'material-ui/svg-icons/content/sort'
-import stackable from '../../stackable'
+import stackable, {IStack} from '../../stackable'
 
 import BinEditor from './bin-editor'
 import Bin from './bin'
 
 export default connect(s => s.apps.budget)(stackable(class Budget extends React.Component<any, any> {
-	stack: any
+	stack: IStack
 	constructor(props) {
 		super(props)
 	}

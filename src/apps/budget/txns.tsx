@@ -4,7 +4,7 @@ import * as React from 'react'
 import AppBar from 'material-ui/AppBar'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
-import stackable from '../../stackable'
+import stackable, {IStack} from '../../stackable'
 
 import IconButton from 'material-ui/IconButton'
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
@@ -14,6 +14,7 @@ import {show} from 'material-ui-dialogs'
 import TxnEditor from './txn-editor'
 
 export default connect(s => s.apps.budget)(stackable(class Txns extends React.Component<any, any> {
+	stack: IStack
 	async onEdit(txn, index) {
 		const newTxn = await show(<TxnEditor txn={txn} />)
 		if (!newTxn) return
@@ -31,7 +32,7 @@ export default connect(s => s.apps.budget)(stackable(class Txns extends React.Co
 		const {txns} = bin
 		return <div>
 			<AppBar title="Transactions"
-				iconElementLeft={<IconButton onClick={() => (this as any).stack.pop()}><ArrowBack /></IconButton>} />
+				iconElementLeft={<IconButton onClick={() => this.stack.pop()}><ArrowBack /></IconButton>} />
 
 			{txns.map((t, i) => <Card key={i} style={{margin: '5px 0'}}>
 				<CardHeader actAsExpander={true} showExpandableButton={true}

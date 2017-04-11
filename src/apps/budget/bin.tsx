@@ -7,7 +7,7 @@ import {show} from 'material-ui-dialogs'
 import FlatButton from 'material-ui/FlatButton'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import LinearProgress from 'material-ui/LinearProgress'
-import stackable from '../../stackable'
+import stackable, {IStack} from '../../stackable'
 
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
@@ -17,7 +17,7 @@ import Txns from './txns'
 import TxnEditor from './txn-editor'
 
 export default connect(s => s)(stackable(class Bin extends React.Component<any, any> {
-	stack: any
+	stack: IStack
 	onTxns() {
 		this.stack.push(<Txns bin={this.props.name}/>)
 	}

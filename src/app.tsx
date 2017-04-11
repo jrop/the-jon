@@ -1,5 +1,5 @@
 import * as React from 'react'
-import stackable from './stackable'
+import stackable, {IStack} from './stackable'
 
 import AppBar from 'material-ui/AppBar'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
@@ -7,10 +7,11 @@ import FlatButton from 'material-ui/FlatButton'
 
 import * as dialogs from 'material-ui-dialogs'
 
+import Bible from './apps/bible'
 import Budget from './apps/budget'
 
 export default stackable(class extends React.Component<any, any> {
-	stack: any
+	stack: IStack
 	render() {
 		return <div>
 			<AppBar iconElementLeft={<div />} title="The Jon" />
@@ -23,7 +24,7 @@ export default stackable(class extends React.Component<any, any> {
 					Read the WEB version (coming soon), and track your one-year plan.
 				</CardText>
 				<CardActions>
-					<FlatButton label="Read" onClick={() => dialogs.alert('Coming soon')}/>
+					<FlatButton label="Read" onClick={() => this.stack.push(<Bible />)}/>
 					<FlatButton label="Plan" onClick={() => dialogs.alert('Coming soon')}/>
 				</CardActions>
 			</Card>

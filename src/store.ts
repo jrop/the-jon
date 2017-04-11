@@ -15,7 +15,6 @@ register('HYDRATE', (s, action) => {
 const store = createStore(function (state: any, action: any) {
 	if (reducers.has(action.type)) {
 		const r = reducers.get(action.type)
-		if (!r) return // to make flow happy
 		return r(state, action)
 	} else {
 		console.warn(`No reducer found for action type: ${action.type}`, action)
