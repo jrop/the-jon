@@ -3,11 +3,6 @@ import {register} from '../../store'
 import update from 'immutability-helper'
 import _ from 'lodash'
 
-register('HYDRATE', (s, action) => {
-	const {store} = action
-	console.info('hydrating store:', s, store)
-	return store
-})
 register('ADD_BIN', function (state, {bin}) {
 	return update(state, {
 		apps: {

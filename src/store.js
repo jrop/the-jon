@@ -1,6 +1,5 @@
 // @flow
 import {createStore} from 'redux'
-import PouchDB from 'pouchdb'
 
 type reducer = (state: any, action: any) => any
 const reducers: Map<string, reducer> = new Map()
@@ -8,6 +7,12 @@ function register(type: string, reducer: reducer) {
 	reducers.set(type, reducer)
 }
 // }}
+
+register('HYDRATE', (s, action) => {
+	const {store} = action
+	console.info('hydrating store:', s, store)
+	return store
+})
 
 const store = createStore(function (state: any, action: any) {
 	if (reducers.has(action.type)) {
@@ -27,23 +32,15 @@ const store = createStore(function (state: any, action: any) {
 })
 
 // DB sync {{
-const db = new PouchDB('app')
-db.get('store')
-	.then(doc => {
-		const s = doc
-		delete s._id
-		delete s._rev
-		store.dispatch({type: 'HYDRATE', store: s})
+const lastStore = localStorage.getItem('store')
+if (lastStore) {
+	store.dispatch({
+		type: 'HYDRATE',
+		store: JSON.parse(lastStore),
 	})
-	.catch(e => {
-		db.put(Object.assign({}, store.getState(), {_id: 'store'}))
-		console.warn('Cannot hydrate store', e)
-	})
-
-store.subscribe(async () => {
-	const doc = await db.get('store')
-	db.put(Object.assign({}, store.getState(), {_id: 'store', _rev: doc._rev}))
-})
+}
+store.subscribe(() =>
+	localStorage.setItem('store', JSON.stringify(store.getState())))
 // }}
 
 window.budget_peek_store = function() {

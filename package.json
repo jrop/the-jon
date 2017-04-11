@@ -19,31 +19,28 @@
     "babel-preset-react": "^6.16.0",
     "eslint": "^3.12.2",
     "eslint-plugin-react": "^6.8.0",
-    "flow-bin": "^0.37.4",
+    "flow-bin": "^0.38.0",
     "flow-typed": "^2.0.0",
     "immutability-helper": "^2.1.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.16.6",
     "material-ui-dialogs": "^1.1.1",
-    "pouchdb": "^6.1.1",
     "react": "^15.4.1",
     "react-activity-stack": "^0.0.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
   },
   "files": [
-		"build/index.js",
-		"build/index.js.map",
-
-		"icons/toilet-paper.png",
-		"icons/bible.svg",
-		"icons/piggy-bank.svg",
-
-		"index.html",
-		"manifest.json"
-	]
+    "build/index.js",
+    "build/index.js.map",
+    "icons/toilet-paper.png",
+    "icons/bible.svg",
+    "icons/piggy-bank.svg",
+    "index.html",
+    "manifest.json"
+  ]
 }

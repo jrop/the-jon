@@ -1,5 +1,12 @@
 {
-	"presets": ["latest", "react"],
+	"presets": [
+		["latest", {
+			"es2015": {
+				"modules": false
+			}
+		}],
+		"react"
+	],
 	"plugins": [
 		"syntax-flow",
 		"transform-flow-strip-types"
