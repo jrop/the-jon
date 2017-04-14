@@ -16,10 +16,10 @@
     "awesome-typescript-loader": "^3.1.2",
     "immutability-helper": "^2.1.2",
     "lodash": "^4.17.4",
-    "material-ui": "^0.17.3",
+    "material-ui": "^0.17.4",
     "material-ui-dialogs": "^1.1.1",
     "mz": "^2.6.0",
-    "prop-types": "^15.5.7",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-activity-stack": "^0.0.1",
     "react-dom": "^15.5.4",
@@ -27,8 +27,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "typescript": "^2.2.2",
-    "usfm": "^0.0.2",
-    "webpack": "^2.3.3",
+    "usfm": "^0.0.3",
+    "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   },
   "files": [
