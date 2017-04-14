@@ -13,7 +13,7 @@ const PROD_PLUGINS = [new webpack.optimize.UglifyJsPlugin({
 
 module.exports = {
 	devtool: '#sourcemap',
-	entry: './src/index.tsx',
+	entry: './src/main/index.tsx',
 	output: {
 		path: `${__dirname}/lib/`,
 		filename: 'index.js',
