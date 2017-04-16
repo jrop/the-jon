@@ -24,7 +24,7 @@ export default stackable(class Bible extends React.Component<any, any> {
 		this.state = {
 			loading: true,
 			current: {
-				h: 'Preface',
+				h: 'Genesis',
 			},
 		}
 	}
@@ -50,8 +50,12 @@ export default stackable(class Bible extends React.Component<any, any> {
 		return <div style={{
 			height: '100%',
 			overflow: 'auto',
+			display: 'flex',
+			flexDirection: 'column',
 		}}>
-			<AppBar title="Bible"
+			<AppBar title="Bible" style={{
+				flex: '0 0 auto',
+			}}
 				iconElementLeft={<IconButton onClick={() => this.stack.pop()}><ArrowBack /></IconButton>}
 				iconElementRight={<IconButton onClick={() => this.onChoose()}><LibraryBooks /></IconButton>} />
 			
@@ -62,7 +66,13 @@ export default stackable(class Bible extends React.Component<any, any> {
 				justifyContent: 'center',
 			}}>
 				<CircularProgress />
-			</div> : <Renderer bible={this.bible} source={this.state.current} />}
+			</div> : <div style={{
+				flex: '1 1 auto',
+				overflow: 'auto',
+				padding: '5px',
+			}}>
+				<Renderer bible={this.bible} source={this.state.current} />
+			</div>}
 		</div>
 	}
 })
